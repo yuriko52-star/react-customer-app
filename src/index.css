@@ -1,0 +1,73 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f5f5f5;
+  font-family: sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+.box {
+  max-width: 1200px;
+  margin: 100px auto;
+}
+.site-title {
+  color: blue;
+  text-align: center;
+  font-size: 42px;
+  font-weight: bold;
+  margin-top: 30px;
+}
+.page-title {
+  color: blue;
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+}
+.table {
+  margin-top: 100px;
+  width: 100%;
+  border-collapse: collapse;
+  /* table-layout: fixed; */
+}
+th {
+  background-color: #f5f5f5;
+}
+td {
+  text-align: center;
+}
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.edit-link {
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  margin-right: 20px;
+}
+.delete-btn {
+  background-color: red;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
