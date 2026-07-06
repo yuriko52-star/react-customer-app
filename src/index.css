@@ -14,9 +14,6 @@ a {
   color: inherit;
 }
 
-button {
-  cursor: pointer;
-}
 .box {
   max-width: 1200px;
   margin: 100px auto;
@@ -56,18 +53,30 @@ td {
   justify-content: center;
   gap: 10px;
 }
-.edit-link {
-  background-color: blue;
-  color: white;
+.create-link {
+  color: blue;
+  border-bottom: 2px solid blue;
+  font-weight: bold;
+  font-size: 20px;
+}
+.action-btn {
+  display: inline-block;
   padding: 10px;
+  color: white;
+  cursor: pointer;
   border-radius: 5px;
   border: none;
+  font-size: 16px;
+  font-family: bold;
+  line-height: 1;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+.edit-link {
+  background-color: blue;
+
   margin-right: 20px;
 }
 .delete-btn {
   background-color: red;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
 }
