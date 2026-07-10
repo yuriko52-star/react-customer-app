@@ -53,11 +53,16 @@ td {
   justify-content: center;
   gap: 10px;
 }
-.create-link {
+.create-link,
+.back-link {
   color: blue;
   border-bottom: 2px solid blue;
   font-weight: bold;
   font-size: 20px;
+  /* display: block; */
+}
+.back-link {
+  text-align: center;
 }
 .action-btn {
   display: inline-block;
@@ -79,4 +84,43 @@ td {
 }
 .delete-btn {
   background-color: red;
+}
+input {
+  width: 50%;
+  height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 20px;
+}
+.register-btn,
+.update-btn {
+  display: block;
+  margin: 30px auto;
+  width: 200px;
+  padding: 20px;
+  background-color: #2563eb;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+dl {
+  width: 100%;
+  text-align: center;
+}
+dt {
+  margin: 30px 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+dd {
+  text-align: center;
+}
+.btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

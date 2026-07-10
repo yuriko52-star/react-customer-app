@@ -1,8 +1,8 @@
 import CustomerList from "../components/CustomerList";
-function Home() {
+function Home({ customerList, handleDelete }) {
   return (
     <>
-      <CustomerList />
+      <CustomerList customerList={customerList} handleDelete={handleDelete} />
     </>
   );
 }

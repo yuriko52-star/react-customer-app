@@ -1,15 +1,6 @@
-import customers from "../data/customers";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function CustomerList() {
-  const [customerList, setCustomerList] = useState(customers);
-
-  // 削除機能
-  const handleDelete = (id) => {
-    const newCustomers = customerList.filter((customer) => customer.id !== id);
-    setCustomerList(newCustomers);
-  };
+function CustomerList({ customerList, handleDelete }) {
   return (
     <div className="box">
       <h2 className="page-title">顧客一覧</h2>
