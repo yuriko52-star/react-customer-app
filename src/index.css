@@ -124,3 +124,13 @@ dd {
   align-items: center;
   justify-content: center;
 }
+.search-input {
+  margin: 50px 0 0 300px;
+}
+.search-message {
+  color: green;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 20px;
+}

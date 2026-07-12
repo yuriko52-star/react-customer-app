@@ -1,12 +1,25 @@
 import { Link } from "react-router-dom";
 
-function CustomerList({ customerList, handleDelete }) {
+function CustomerList({ customerList, handleDelete, keyword, setKeyword }) {
   return (
     <div className="box">
       <h2 className="page-title">顧客一覧</h2>
       <Link className="create-link" to="/create">
         新規作成
       </Link>
+      <input
+        type="text"
+        placeholder="名前・メール・郵便番号・住所で検索"
+        value={keyword}
+        onChange={(e) => setKeyword(e.target.value)}
+        className="search-input"
+      />
+      {keyword && (
+        <p className="search-message">
+          「{keyword}」の検索結果:{customerList.length}件
+        </p>
+      )}
+
       <table className="table">
         <thead>
           <tr>
@@ -18,28 +31,34 @@ function CustomerList({ customerList, handleDelete }) {
           </tr>
         </thead>
         <tbody>
-          {customerList.map((customer) => (
-            <tr key={customer.id}>
-              <td>{customer.name}</td>
-              <td>{customer.email}</td>
-              <td>{customer.postal_code}</td>
-              <td>{customer.address}</td>
-              <td>
-                <Link
-                  className="action-btn edit-link"
-                  to={`/edit/${customer.id}`}
-                >
-                  編集
-                </Link>
-                <button
-                  className="action-btn delete-btn"
-                  onClick={() => handleDelete(customer.id)}
-                >
-                  削除
-                </button>
-              </td>
+          {customerList.length === 0 && keyword ? (
+            <tr>
+              <td colSpan="5">該当する顧客がありません</td>
             </tr>
-          ))}
+          ) : (
+            customerList.map((customer) => (
+              <tr key={customer.id}>
+                <td>{customer.name}</td>
+                <td>{customer.email}</td>
+                <td>{customer.postal_code}</td>
+                <td>{customer.address}</td>
+                <td>
+                  <Link
+                    className="action-btn edit-link"
+                    to={`/edit/${customer.id}`}
+                  >
+                    編集
+                  </Link>
+                  <button
+                    className="action-btn delete-btn"
+                    onClick={() => handleDelete(customer.id)}
+                  >
+                    削除
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

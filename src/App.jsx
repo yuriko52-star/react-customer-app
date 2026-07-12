@@ -9,6 +9,7 @@ import "./index.css";
 
 function App() {
   const [customerList, setCustomerList] = useState(customers);
+  const [keyword, setKeyword] = useState("");
 
   const addCustomer = (customer) => {
     setCustomerList([
@@ -32,7 +33,15 @@ function App() {
     const newCustomers = customerList.filter((customer) => customer.id !== id);
     setCustomerList(newCustomers);
   };
-
+  // 検索機能
+  const filteredCustomers = customerList.filter((customer) => {
+    return (
+      customer.name.includes(keyword) ||
+      customer.email.includes(keyword) ||
+      String(customer.postal_code).includes(keyword) ||
+      customer.address.includes(keyword)
+    );
+  });
   return (
     <>
       <BrowserRouter>
@@ -40,7 +49,12 @@ function App() {
           <Route
             path="/"
             element={
-              <Home customerList={customerList} handleDelete={handleDelete} />
+              <Home
+                customerList={filteredCustomers}
+                handleDelete={handleDelete}
+                keyword={keyword}
+                setKeyword={setKeyword}
+              />
             }
           ></Route>
           <Route

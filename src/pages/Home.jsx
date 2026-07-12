@@ -1,8 +1,13 @@
 import CustomerList from "../components/CustomerList";
-function Home({ customerList, handleDelete }) {
+function Home({ customerList, handleDelete, keyword, setKeyword }) {
   return (
     <>
-      <CustomerList customerList={customerList} handleDelete={handleDelete} />
+      <CustomerList
+        customerList={customerList}
+        handleDelete={handleDelete}
+        keyword={keyword}
+        setKeyword={setKeyword}
+      />
     </>
   );
 }
