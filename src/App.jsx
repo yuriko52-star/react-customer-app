@@ -2,14 +2,24 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Create from "./pages/Create";
 import Edit from "./pages/Edit";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import customers from "./data/customers";
 
 import "./index.css";
 
 function App() {
-  const [customerList, setCustomerList] = useState(customers);
+  const [customerList, setCustomerList] = useState(() => {
+    const savedCustomers = localStorage.getItem('customers');
+
+    return savedCustomers ? JSON.parse(savedCustomers) : customers;
+  });
   const [keyword, setKeyword] = useState("");
+
+  
+
+  useEffect(() => {
+    localStorage.setItem("customers", JSON.stringify(customerList));
+  }, [customerList]);
 
   const addCustomer = (customer) => {
     setCustomerList([
