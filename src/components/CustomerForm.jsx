@@ -13,26 +13,52 @@ function CustomerForm({ customer, addCustomer, updateCustomer }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const formattedPostalCode = postalCode.replace(/\s/g, "");
 
     if (customer) {
       updateCustomer({
         id: customer.id,
         name,
         email,
-        postal_code: postalCode,
+        postal_code: formattedPostalCode,
         address,
       });
     } else {
       addCustomer({
         name,
         email,
-        postal_code: postalCode,
+        postal_code: formattedPostalCode,
         address,
       });
     }
 
     console.log([name, email, postalCode, address]);
     navigate("/");
+  };
+  const searchAddress = async () => {
+    if (!postalCode) return;
+
+    try {
+      const zip = postalCode.replace(/\s/g, "");
+
+      const response = await fetch(
+        `https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zip}`,
+      );
+
+      const data = await response.json();
+
+      if (data.results) {
+        setAddress(
+          data.results[0].address1 +
+            data.results[0].address2 +
+            data.results[0].address3,
+        );
+      } else {
+        alert("住所が見つかりませんでした");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -65,6 +91,7 @@ function CustomerForm({ customer, addCustomer, updateCustomer }) {
             value={postalCode}
             onChange={(e) => setPostalCode(e.target.value)}
             className=""
+            onBlur={searchAddress}
           />
         </dd>
         <dt>住所</dt>

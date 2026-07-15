@@ -3,7 +3,7 @@ const customers = [
     id: 1,
     name: "山田太郎",
     email: "yamada@example.com",
-    postal_code: "491 -0914",
+    postal_code: "491-0914",
     address: "愛知県一宮市花池",
   },
   {
