@@ -3,24 +3,32 @@ import Home from "./pages/Home";
 import Create from "./pages/Create";
 import Edit from "./pages/Edit";
 import { useState, useEffect } from "react";
-import customers from "./data/customers";
+// import customers from "./data/customers";
+import customersAPI from "./lib/api";
 
 import "./index.css";
 
 function App() {
-  const [customerList, setCustomerList] = useState(() => {
+  /*const [customerList, setCustomerList] = useState(() => {
     const savedCustomers = localStorage.getItem('customers');
 
     return savedCustomers ? JSON.parse(savedCustomers) : customers;
   });
+  */
+  const [customerList, setCustomerList] = useState([]);
   const [keyword, setKeyword] = useState("");
-
-  
-
+  const [pagination, setPagination] = useState({});
   useEffect(() => {
+    customersAPI.getAll().then((data) => {
+      setCustomerList(data.data);
+      setPagination(data);
+    });
+  }, []);
+
+  /* useEffect(() => {
     localStorage.setItem("customers", JSON.stringify(customerList));
   }, [customerList]);
-
+*/
   const addCustomer = (customer) => {
     setCustomerList([
       ...customerList,
