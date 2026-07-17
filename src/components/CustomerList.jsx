@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
 
-function CustomerList({ customerList, handleDelete, keyword, setKeyword }) {
+function CustomerList({
+  customerList,
+  handleDelete,
+  keyword,
+  setKeyword,
+  page,
+  setPage,
+  links,
+}) {
   return (
     <div className="box">
       <h2 className="page-title">顧客一覧</h2>
@@ -61,6 +69,43 @@ function CustomerList({ customerList, handleDelete, keyword, setKeyword }) {
           )}
         </tbody>
       </table>
+      <div className="pagination">
+        {links.map((link, index) => (
+          <button
+            key={index}
+            disabled={!link.url}
+            className={link.active ? "active" : ""}
+            onClick={() => {
+              const url = new URL(link.url);
+              const page = url.searchParams.get("page");
+              setPage(Number(page));
+            }}
+          >
+            {link.label.replace("&laquo;", "<<").replace("&raquo;", ">>")}
+          </button>
+        ))}
+        {/* <button onClick={() => setPage(page - 1)} disabled={page === 1}> */}
+        {/* ← 前へ */}
+        {/* </button> 
+        {Array.from({ length: lastPage }, (_, index) => (
+          <button
+            key={index + 1}
+            className={page === index + 1
+              ? 'page-btn active'
+              : 'page-btn'
+          }
+            onClick={() => setPage(index + 1)}>
+            {index + 1}
+          </button>
+        ))}
+        {/* <span> 
+          {page} / {lastPage}
+        </span>*
+        <button onClick={() => setPage(page + 1)} disabled={page === lastPage}>
+          次へ →
+      </button>
+      */}
+      </div>
     </div>
   );
 }

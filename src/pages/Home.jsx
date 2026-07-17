@@ -1,5 +1,14 @@
 import CustomerList from "../components/CustomerList";
-function Home({ customerList, handleDelete, keyword, setKeyword }) {
+function Home({
+  customerList,
+  handleDelete,
+  keyword,
+  setKeyword,
+  page,
+  setPage,
+  links,
+  // lastPage,
+}) {
   return (
     <>
       <CustomerList
@@ -7,6 +16,10 @@ function Home({ customerList, handleDelete, keyword, setKeyword }) {
         handleDelete={handleDelete}
         keyword={keyword}
         setKeyword={setKeyword}
+        page={page}
+        setPage={setPage}
+        links={links}
+        // lastPage={lastPage}
       />
     </>
   );

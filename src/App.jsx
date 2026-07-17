@@ -18,12 +18,18 @@ function App() {
   const [customerList, setCustomerList] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [pagination, setPagination] = useState({});
+  const [page, setPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
+  const [links, setLinks] = useState([]);
   useEffect(() => {
-    customersAPI.getAll().then((data) => {
+    customersAPI.getAll(page).then((data) => {
+      console.log(data);
       setCustomerList(data.data);
-      setPagination(data);
+      setLinks(data.links);
+      // setPagination(data);
+      // setLastPage(data.last_page);
     });
-  }, []);
+  }, [page]);
 
   /* useEffect(() => {
     localStorage.setItem("customers", JSON.stringify(customerList));
@@ -72,6 +78,10 @@ function App() {
                 handleDelete={handleDelete}
                 keyword={keyword}
                 setKeyword={setKeyword}
+                page={page}
+                setPage={setPage}
+                // lastPage={lastPage}
+                links={links}
               />
             }
           ></Route>
