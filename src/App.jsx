@@ -22,14 +22,14 @@ function App() {
   const [lastPage, setLastPage] = useState(1);
   const [links, setLinks] = useState([]);
   useEffect(() => {
-    customersAPI.getAll(page).then((data) => {
+    customersAPI.getAll(page, keyword).then((data) => {
       console.log(data);
       setCustomerList(data.data);
       setLinks(data.links);
       // setPagination(data);
       // setLastPage(data.last_page);
     });
-  }, [page]);
+  }, [page, keyword]);
 
   /* useEffect(() => {
     localStorage.setItem("customers", JSON.stringify(customerList));
@@ -57,15 +57,8 @@ function App() {
     const newCustomers = customerList.filter((customer) => customer.id !== id);
     setCustomerList(newCustomers);
   };
-  // 検索機能
-  const filteredCustomers = customerList.filter((customer) => {
-    return (
-      customer.name.includes(keyword) ||
-      customer.email.includes(keyword) ||
-      String(customer.postal_code).includes(keyword) ||
-      customer.address.includes(keyword)
-    );
-  });
+  // 検索機能は削除した（バックエンドで対応）
+
   return (
     <>
       <BrowserRouter>
@@ -74,7 +67,7 @@ function App() {
             path="/"
             element={
               <Home
-                customerList={filteredCustomers}
+                customerList={customerList}
                 handleDelete={handleDelete}
                 keyword={keyword}
                 setKeyword={setKeyword}
