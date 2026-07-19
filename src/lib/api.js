@@ -6,5 +6,22 @@ const customersAPI = {
       (res) => res.json(),
     );
   },
+
+  create(customer) {
+    return fetch(`${API_URL}/customers`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(customer),
+    }).then(async (res) => {
+      const data = await res.json();
+      if (!res.ok) {
+        throw data;
+      }
+      return data;
+    });
+  },
 };
 export default customersAPI;

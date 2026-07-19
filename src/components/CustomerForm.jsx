@@ -9,31 +9,35 @@ function CustomerForm({ customer, addCustomer, updateCustomer }) {
     customer ? customer.postal_code : "",
   );
   const [address, setAddress] = useState(customer ? customer.address : "");
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formattedPostalCode = postalCode.replace(/\s/g, "");
+    try {
+      if (customer) {
+        await updateCustomer({
+          id: customer.id,
+          name,
+          email,
+          postal_code: formattedPostalCode,
+          address,
+        });
+      } else {
+        await addCustomer({
+          name,
+          email,
+          postal_code: formattedPostalCode,
+          address,
+        });
+      }
 
-    if (customer) {
-      updateCustomer({
-        id: customer.id,
-        name,
-        email,
-        postal_code: formattedPostalCode,
-        address,
-      });
-    } else {
-      addCustomer({
-        name,
-        email,
-        postal_code: formattedPostalCode,
-        address,
-      });
+      // console.log([name, email, postalCode, address]);
+      navigate("/");
+    } catch (error) {
+      setErrors(error.errors);
     }
-
-    console.log([name, email, postalCode, address]);
-    navigate("/");
   };
   const searchAddress = async () => {
     if (!postalCode) return;
@@ -72,8 +76,9 @@ function CustomerForm({ customer, addCustomer, updateCustomer }) {
             className=""
             onChange={(e) => setName(e.target.value)}
           />
-        </dd>
 
+          {errors.name && <p className="error-message">{errors.name[0]}</p>}
+        </dd>
         <dt>メールアドレス</dt>
         <dd>
           <input
@@ -82,6 +87,7 @@ function CustomerForm({ customer, addCustomer, updateCustomer }) {
             onChange={(e) => setEmail(e.target.value)}
             className=""
           />
+          {errors.email && <p className="error-message">{errors.email[0]}</p>}
         </dd>
 
         <dt>郵便番号</dt>
@@ -93,6 +99,9 @@ function CustomerForm({ customer, addCustomer, updateCustomer }) {
             className=""
             onBlur={searchAddress}
           />
+          {errors.postal_code && (
+            <p className="error-message">{errors.postal_code[0]}</p>
+          )}
         </dd>
         <dt>住所</dt>
         <dd>
@@ -102,6 +111,9 @@ function CustomerForm({ customer, addCustomer, updateCustomer }) {
             onChange={(e) => setAddress(e.target.value)}
             className=""
           />
+          {errors.address && (
+            <p className="error-message">{errors.address[0]}</p>
+          )}
         </dd>
       </dl>
 

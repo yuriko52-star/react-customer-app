@@ -35,13 +35,11 @@ function App() {
     localStorage.setItem("customers", JSON.stringify(customerList));
   }, [customerList]);
 */
-  const addCustomer = (customer) => {
+  const addCustomer = async (customer) => {
+    const newCustomer = await customersAPI.create(customer);
     setCustomerList([
       ...customerList,
-      {
-        id: Date.now(),
-        ...customer,
-      },
+     newCustomer
     ]);
   };
   // 編集機能
