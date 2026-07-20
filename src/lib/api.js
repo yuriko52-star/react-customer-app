@@ -23,5 +23,20 @@ const customersAPI = {
       return data;
     });
   },
+
+  update(id, customer) {
+    return fetch(`${API_URL}/customers/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(customer),
+    }).then(async (res) => {
+      const data = await res.json();
+      if (!res.ok) throw data;
+      return data;
+    });
+  },
 };
 export default customersAPI;

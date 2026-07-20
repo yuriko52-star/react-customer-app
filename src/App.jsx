@@ -17,9 +17,9 @@ function App() {
   */
   const [customerList, setCustomerList] = useState([]);
   const [keyword, setKeyword] = useState("");
-  const [pagination, setPagination] = useState({});
+  // const [pagination, setPagination] = useState({});
   const [page, setPage] = useState(1);
-  const [lastPage, setLastPage] = useState(1);
+  // const [lastPage, setLastPage] = useState(1);
   const [links, setLinks] = useState([]);
   useEffect(() => {
     customersAPI.getAll(page, keyword).then((data) => {
@@ -37,16 +37,14 @@ function App() {
 */
   const addCustomer = async (customer) => {
     const newCustomer = await customersAPI.create(customer);
-    setCustomerList([
-      ...customerList,
-     newCustomer
-    ]);
+    setCustomerList([...customerList, newCustomer]);
   };
   // 編集機能
-  const updateCustomer = (updatedCustomer) => {
+  const updateCustomer = async (updatedCustomer) => {
+    const data = await customersAPI.update(updatedCustomer.id, updatedCustomer);
     setCustomerList(
       customerList.map((customer) =>
-        customer.id === updatedCustomer.id ? updatedCustomer : customer,
+        customer.id === data.id ? data : customer,
       ),
     );
   };
