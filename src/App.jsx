@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import customersAPI from "./lib/api";
 
 import "./index.css";
+import { NotificationProvider } from "./contexts/NotificationContext";
 
 function App() {
   /*const [customerList, setCustomerList] = useState(() => {
@@ -49,46 +50,49 @@ function App() {
     );
   };
   // 削除機能
-  const handleDelete = (id) => {
-    const newCustomers = customerList.filter((customer) => customer.id !== id);
-    setCustomerList(newCustomers);
+  const handleDelete = async (id) => {
+    await customersAPI.delete(id);
+
+    setCustomerList(customerList.filter((customer) => customer.id !== id));
   };
   // 検索機能は削除した（バックエンドで対応）
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                customerList={customerList}
-                handleDelete={handleDelete}
-                keyword={keyword}
-                setKeyword={setKeyword}
-                page={page}
-                setPage={setPage}
-                // lastPage={lastPage}
-                links={links}
-              />
-            }
-          ></Route>
-          <Route
-            path="/create"
-            element={<Create addCustomer={addCustomer} />}
-          ></Route>
-          <Route
-            path="/edit/:id"
-            element={
-              <Edit
-                customerList={customerList}
-                updateCustomer={updateCustomer}
-              />
-            }
-          ></Route>
-        </Routes>
-      </BrowserRouter>
+      <NotificationProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Home
+                  customerList={customerList}
+                  handleDelete={handleDelete}
+                  keyword={keyword}
+                  setKeyword={setKeyword}
+                  page={page}
+                  setPage={setPage}
+                  // lastPage={lastPage}
+                  links={links}
+                />
+              }
+            ></Route>
+            <Route
+              path="/create"
+              element={<Create addCustomer={addCustomer} />}
+            ></Route>
+            <Route
+              path="/edit/:id"
+              element={
+                <Edit
+                  customerList={customerList}
+                  updateCustomer={updateCustomer}
+                />
+              }
+            ></Route>
+          </Routes>
+        </BrowserRouter>
+      </NotificationProvider>
     </>
   );
 }

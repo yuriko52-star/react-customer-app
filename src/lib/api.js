@@ -38,5 +38,18 @@ const customersAPI = {
       return data;
     });
   },
+
+  delete(id) {
+    return fetch(`${API_URL}/customers/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+      },
+    }).then(async (res) => {
+      const data = await res.json();
+      if (!res.ok) throw data;
+      return data;
+    });
+  },
 };
 export default customersAPI;

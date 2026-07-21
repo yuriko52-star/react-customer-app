@@ -179,3 +179,15 @@ dd {
   font-size: 14px;
   margin-top: 5px;
 }
+.toast {
+  background: #4caf50;
+  color: white;
+  text-align: center;
+  padding: 12px 20px;
+
+  border-radius: 8px;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  width: 250px;
+  margin: 20px auto;
+}

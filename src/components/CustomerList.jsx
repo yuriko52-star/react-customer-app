@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
+import { useNotification } from "../contexts/NotificationContext";
 
 function CustomerList({
   customerList,
   handleDelete,
   keyword,
   setKeyword,
-  page,
+  // page,
   setPage,
   links,
 }) {
+  const { notification, showNotification } = useNotification();
   return (
     <div className="box">
       <h2 className="page-title">顧客一覧</h2>
@@ -27,7 +29,7 @@ function CustomerList({
           「{keyword}」の検索結果:{customerList.length}件
         </p>
       )}
-
+      {notification && <div className="toast">{notification}</div>}
       <table className="table">
         <thead>
           <tr>
@@ -59,7 +61,12 @@ function CustomerList({
                   </Link>
                   <button
                     className="action-btn delete-btn"
-                    onClick={() => handleDelete(customer.id)}
+                    onClick={async () => {
+                      if (window.confirm("この顧客を削除しますか？")) {
+                        await handleDelete(customer.id);
+                        showNotification("顧客を削除しました");
+                      }
+                    }}
                   >
                     削除
                   </button>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
+import { useNotification } from "../contexts/NotificationContext";
 
 function CustomerForm({ customer, addCustomer, updateCustomer }) {
   const [name, setName] = useState(customer ? customer.name : "");
@@ -11,6 +12,7 @@ function CustomerForm({ customer, addCustomer, updateCustomer }) {
   const [address, setAddress] = useState(customer ? customer.address : "");
   const [errors, setErrors] = useState({});
   const navigate = useNavigate("");
+  const { showNotification } = useNotification();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +26,8 @@ function CustomerForm({ customer, addCustomer, updateCustomer }) {
           postal_code: formattedPostalCode,
           address,
         });
+        console.log("通知を表示");
+        showNotification("顧客を更新しました");
       } else {
         await addCustomer({
           name,
@@ -31,6 +35,8 @@ function CustomerForm({ customer, addCustomer, updateCustomer }) {
           postal_code: formattedPostalCode,
           address,
         });
+        console.log("通知を表示");
+        showNotification("顧客を登録しました");
       }
 
       // console.log([name, email, postalCode, address]);
